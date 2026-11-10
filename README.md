@@ -51,10 +51,10 @@ Via **Configureren** stel je het ophaalinterval (standaard 5 minuten) en de taal
 
 ### API-key
 
-Zonder key gebruikt de integratie de [anonieme key](https://developer.dataplatform.knmi.nl/open-data-api) die het KNMI publiceert.
-Die wordt door iedereen gedeeld (limiet 50 verzoeken per minuut en 3000 per uur voor alle gebruikers samen) en is geldig tot 1 augustus 2027.
-Vraag liever een **gratis eigen key** aan voor de *Open Data API* via het
-[KNMI Developer Portal](https://developer.dataplatform.knmi.nl/). Per poll doet de integratie één verzoek; alleen bij een nieuwe snapshot komt er één verzoek bij.
+Zonder key gebruikt de integratie een gedeelde anonieme KNMI-key. Die delen alle gebruikers (limiet 50 verzoeken/minuut en 3000/uur samen) en het KNMI vervangt hem jaarlijks.
+**Vraag daarom een gratis eigen key aan** voor de *Open Data API* via het [KNMI Developer Portal](https://developer.dataplatform.knmi.nl/) (account aanmaken → API Catalog → Open Data API). Let op: een key voor de EDR- of WMS-API werkt hier niet.
+Een eigen key wijzig je later via **Opnieuw configureren** als het KNMI de key weigert.
+Per poll doet de integratie één verzoek; alleen bij een nieuwe snapshot komt er één verzoek bij.
 
 ## Entities
 

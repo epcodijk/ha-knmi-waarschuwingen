@@ -42,16 +42,26 @@ class KnmiWarningsClient:
                 headers={"Authorization": self._api_key},
                 timeout=REQUEST_TIMEOUT,
             ) as resp:
-                if resp.status in (401, 403):
-                    raise KnmiAuthError(f"API key rejected (HTTP {resp.status})")
-                if resp.status == 429:
-                    raise KnmiRateLimitError("KNMI API rate limit exceeded")
                 if resp.status >= 400:
-                    text = await resp.text()
-                    raise KnmiApiError(f"HTTP {resp.status}: {text[:200]}")
-                return await resp.json(content_type=None)
-        except (TimeoutError, aiohttp.ClientError) as err:
-            raise KnmiApiError(f"Error communicating with KNMI: {err}") from err
+                    text = (await resp.text())[:200].strip()
+                    detail = f"HTTP {resp.status} from {resp.url.host}: {text}"
+                    if resp.status in (401, 403):
+                        raise KnmiAuthError(detail)
+                    if resp.status == 429:
+                        raise KnmiRateLimitError(detail)
+                    raise KnmiApiError(detail)
+                try:
+                    return await resp.json(content_type=None)
+                except ValueError as err:
+                    raise KnmiApiError(
+                        f"Invalid JSON from {resp.url.host} (HTTP {resp.status})"
+                    ) from err
+        except TimeoutError as err:
+            raise KnmiApiError(
+                "Timeout connecting to api.dataplatform.knmi.nl"
+            ) from err
+        except aiohttp.ClientError as err:
+            raise KnmiApiError(f"{type(err).__name__}: {err}") from err
 
     async def async_get_latest_filename(self) -> str | None:
         """Return the filename of the newest snapshot (JSON), or None."""

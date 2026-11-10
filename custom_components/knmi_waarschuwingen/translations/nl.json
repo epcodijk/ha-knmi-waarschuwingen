@@ -20,10 +20,10 @@
       }
     },
     "error": {
-      "cannot_connect": "Kan geen verbinding maken met het KNMI Data Platform.",
-      "invalid_auth": "De API-key is ongeldig.",
+      "cannot_connect": "Kan het KNMI Data Platform niet bereiken: {error_detail}",
+      "invalid_auth": "Het KNMI weigert de API-key ({error_detail}). De gedeelde anonieme key is mogelijk verlopen: vul je eigen Open Data API-key in.",
       "outside_netherlands": "Deze locatie ligt buiten het KNMI-waarschuwingsgebied (Nederland).",
-      "unknown": "Onverwachte fout."
+      "unknown": "Onverwachte fout: {error_detail}"
     },
     "abort": {
       "already_configured": "Deze locatie is al ingesteld.",
@@ -51,9 +51,15 @@
   },
   "entity": {
     "binary_sensor": {
-      "warning_active": { "name": "Waarschuwing actief" },
-      "warning_upcoming": { "name": "Waarschuwing verwacht" },
-      "potentially_dangerous_weather": { "name": "Mogelijk gevaarlijk weer" }
+      "warning_active": {
+        "name": "Waarschuwing actief"
+      },
+      "warning_upcoming": {
+        "name": "Waarschuwing verwacht"
+      },
+      "potentially_dangerous_weather": {
+        "name": "Mogelijk gevaarlijk weer"
+      }
     },
     "sensor": {
       "color": {
@@ -74,8 +80,12 @@
           "red": "Rood"
         }
       },
-      "next_warning": { "name": "Volgende waarschuwing" },
-      "last_update": { "name": "KNMI-update" }
+      "next_warning": {
+        "name": "Volgende waarschuwing"
+      },
+      "last_update": {
+        "name": "KNMI-update"
+      }
     }
   }
 }

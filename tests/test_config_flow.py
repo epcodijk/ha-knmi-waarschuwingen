@@ -116,3 +116,21 @@ async def test_options(hass: HomeAssistant, config_entry: MockConfigEntry) -> No
     )
     assert result["type"] is FlowResultType.CREATE_ENTRY
     assert config_entry.options == {"scan_interval": 10, "language": "en"}
+
+
+async def test_error_detail_is_shown(hass: HomeAssistant) -> None:
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": config_entries.SOURCE_USER}
+    )
+    with patch(
+        VALIDATE,
+        new_callable=AsyncMock,
+        side_effect=KnmiApiError("ClientConnectorDNSError: no host"),
+    ):
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"], USER_INPUT
+        )
+    assert result["errors"] == {"base": "cannot_connect"}
+    assert result["description_placeholders"] == {
+        "error_detail": "ClientConnectorDNSError: no host"
+    }

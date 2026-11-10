@@ -49,19 +49,21 @@ NL_LAT = (50.6, 53.7)
 NL_LON = (3.2, 7.4)
 
 
-async def _validate_key(hass: HomeAssistant, api_key: str) -> str | None:
-    """Return an error key, or None when the API key works."""
+async def _validate_key(hass: HomeAssistant, api_key: str) -> tuple[str | None, str]:
+    """Return (error key, detail); error key is None when the API key works."""
     client = KnmiWarningsClient(async_get_clientsession(hass), api_key)
     try:
         await client.async_get_latest_filename()
-    except KnmiAuthError:
-        return "invalid_auth"
-    except KnmiApiError:
-        return "cannot_connect"
-    except Exception:  # noqa: BLE001
+    except KnmiAuthError as err:
+        _LOGGER.warning("KNMI rejected the API key: %s", err)
+        return "invalid_auth", str(err)
+    except KnmiApiError as err:
+        _LOGGER.warning("Could not reach the KNMI Open Data API: %s", err)
+        return "cannot_connect", str(err)
+    except Exception as err:  # noqa: BLE001
         _LOGGER.exception("Unexpected error validating KNMI API key")
-        return "unknown"
-    return None
+        return "unknown", f"{type(err).__name__}: {err}"
+    return None, ""
 
 
 class KnmiConfigFlow(ConfigFlow, domain=DOMAIN):
@@ -74,6 +76,7 @@ class KnmiConfigFlow(ConfigFlow, domain=DOMAIN):
     ) -> ConfigFlowResult:
         """Ask for a location and (optionally) an API key."""
         errors: dict[str, str] = {}
+        detail = ""
 
         if user_input is not None:
             lat = float(user_input[CONF_LATITUDE])
@@ -85,7 +88,9 @@ class KnmiConfigFlow(ConfigFlow, domain=DOMAIN):
             else:
                 await self.async_set_unique_id(f"{lat:.4f}_{lon:.4f}")
                 self._abort_if_unique_id_configured()
-                error = await _validate_key(self.hass, api_key or ANONYMOUS_API_KEY)
+                error, detail = await _validate_key(
+                    self.hass, api_key or ANONYMOUS_API_KEY
+                )
                 if error:
                     errors["base"] = error
                 else:
@@ -119,7 +124,12 @@ class KnmiConfigFlow(ConfigFlow, domain=DOMAIN):
                 ): TextSelector(TextSelectorConfig(type=TextSelectorType.PASSWORD)),
             }
         )
-        return self.async_show_form(step_id="user", data_schema=schema, errors=errors)
+        return self.async_show_form(
+            step_id="user",
+            data_schema=schema,
+            errors=errors,
+            description_placeholders={"error_detail": detail},
+        )
 
     async def async_step_reauth(
         self, entry_data: Mapping[str, Any]
@@ -132,9 +142,10 @@ class KnmiConfigFlow(ConfigFlow, domain=DOMAIN):
     ) -> ConfigFlowResult:
         """Ask for a new API key."""
         errors: dict[str, str] = {}
+        detail = ""
         if user_input is not None:
             api_key = (user_input.get(CONF_API_KEY) or "").strip()
-            error = await _validate_key(self.hass, api_key or ANONYMOUS_API_KEY)
+            error, detail = await _validate_key(self.hass, api_key or ANONYMOUS_API_KEY)
             if error:
                 errors["base"] = error
             else:
@@ -151,6 +162,7 @@ class KnmiConfigFlow(ConfigFlow, domain=DOMAIN):
                 }
             ),
             errors=errors,
+            description_placeholders={"error_detail": detail},
         )
 
     @staticmethod
