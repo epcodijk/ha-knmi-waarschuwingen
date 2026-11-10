@@ -1,3 +1,5 @@
+<img src="custom_components/knmi_waarschuwingen/brand/icon.png" alt="" width="96" align="right">
+
 # KNMI Waarschuwingen voor Home Assistant (onofficieel)
 
 [![Marketplace](https://img.shields.io/badge/Home%20Assistant-Marketplace-41BDF5.svg)](https://www.home-assistant.io/blog/2026/11/04/release-202611/)

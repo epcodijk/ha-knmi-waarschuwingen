@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.4
+
+- Eigen icoon (origineel ontwerp, geen bestaand logo) in `brand/`, zichtbaar in Home Assistant 2026.3+ en de Marketplace. Bron: `assets/icon.svg`.
+
 ## 0.1.3
 
 - Duidelijk vermeld dat dit een **onofficiële** integratie is: in de naam, het configuratieformulier, de apparaatinfo en de attributie van de sensoren.
