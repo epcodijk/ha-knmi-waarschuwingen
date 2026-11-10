@@ -1,0 +1,81 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "KNMI weather warnings",
+        "description": "Choose the location to monitor. Warnings are checked against the exact KNMI warning areas.\n\nThe API key is optional: leave it empty to use the shared anonymous KNMI key. A free personal key from the KNMI Data Platform (Open Data API) is recommended.",
+        "data": {
+          "name": "Name",
+          "latitude": "Latitude",
+          "longitude": "Longitude",
+          "api_key": "API key (optional)"
+        }
+      },
+      "reauth_confirm": {
+        "title": "KNMI API key rejected",
+        "description": "KNMI rejected the API key. Enter a new key, or leave empty to use the anonymous key.",
+        "data": {
+          "api_key": "API key (optional)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not connect to the KNMI Data Platform.",
+      "invalid_auth": "The API key is invalid.",
+      "outside_netherlands": "This location is outside the KNMI warning area (the Netherlands).",
+      "unknown": "Unexpected error."
+    },
+    "abort": {
+      "already_configured": "This location is already configured.",
+      "reauth_successful": "The API key was updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "KNMI weather warnings options",
+        "data": {
+          "scan_interval": "Polling interval",
+          "language": "Language of warning texts"
+        }
+      }
+    }
+  },
+  "selector": {
+    "language": {
+      "options": {
+        "nl": "Dutch",
+        "en": "English"
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "warning_active": { "name": "Warning active" },
+      "warning_upcoming": { "name": "Warning upcoming" },
+      "potentially_dangerous_weather": { "name": "Potentially dangerous weather" }
+    },
+    "sensor": {
+      "color": {
+        "name": "Color code",
+        "state": {
+          "green": "Green",
+          "yellow": "Yellow",
+          "orange": "Orange",
+          "red": "Red"
+        }
+      },
+      "max_color": {
+        "name": "Highest color code (48h)",
+        "state": {
+          "green": "Green",
+          "yellow": "Yellow",
+          "orange": "Orange",
+          "red": "Red"
+        }
+      },
+      "next_warning": { "name": "Next warning" },
+      "last_update": { "name": "KNMI update" }
+    }
+  }
+}

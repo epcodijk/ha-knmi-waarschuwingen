@@ -1,0 +1,81 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "KNMI-weerwaarschuwingen",
+        "description": "Kies de locatie die je wilt volgen. Waarschuwingen worden getoetst aan de exacte KNMI-waarschuwingsgebieden.\n\nDe API-key is optioneel: laat leeg om de gedeelde anonieme KNMI-key te gebruiken. Een gratis eigen key van het KNMI Data Platform (Open Data API) wordt aangeraden.",
+        "data": {
+          "name": "Naam",
+          "latitude": "Breedtegraad",
+          "longitude": "Lengtegraad",
+          "api_key": "API-key (optioneel)"
+        }
+      },
+      "reauth_confirm": {
+        "title": "KNMI API-key geweigerd",
+        "description": "Het KNMI heeft de API-key geweigerd. Vul een nieuwe key in, of laat leeg voor de anonieme key.",
+        "data": {
+          "api_key": "API-key (optioneel)"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Kan geen verbinding maken met het KNMI Data Platform.",
+      "invalid_auth": "De API-key is ongeldig.",
+      "outside_netherlands": "Deze locatie ligt buiten het KNMI-waarschuwingsgebied (Nederland).",
+      "unknown": "Onverwachte fout."
+    },
+    "abort": {
+      "already_configured": "Deze locatie is al ingesteld.",
+      "reauth_successful": "De API-key is bijgewerkt."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opties KNMI-weerwaarschuwingen",
+        "data": {
+          "scan_interval": "Ophaalinterval",
+          "language": "Taal van waarschuwingsteksten"
+        }
+      }
+    }
+  },
+  "selector": {
+    "language": {
+      "options": {
+        "nl": "Nederlands",
+        "en": "Engels"
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "warning_active": { "name": "Waarschuwing actief" },
+      "warning_upcoming": { "name": "Waarschuwing verwacht" },
+      "potentially_dangerous_weather": { "name": "Mogelijk gevaarlijk weer" }
+    },
+    "sensor": {
+      "color": {
+        "name": "Kleurcode",
+        "state": {
+          "green": "Groen",
+          "yellow": "Geel",
+          "orange": "Oranje",
+          "red": "Rood"
+        }
+      },
+      "max_color": {
+        "name": "Hoogste kleurcode (48 uur)",
+        "state": {
+          "green": "Groen",
+          "yellow": "Geel",
+          "orange": "Oranje",
+          "red": "Rood"
+        }
+      },
+      "next_warning": { "name": "Volgende waarschuwing" },
+      "last_update": { "name": "KNMI-update" }
+    }
+  }
+}

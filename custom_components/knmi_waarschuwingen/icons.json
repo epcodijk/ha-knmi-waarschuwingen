@@ -1,0 +1,30 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "warning_active": {
+        "default": "mdi:weather-cloudy-alert",
+        "state": { "off": "mdi:check-circle-outline" }
+      },
+      "warning_upcoming": {
+        "default": "mdi:clock-alert-outline",
+        "state": { "off": "mdi:clock-check-outline" }
+      },
+      "potentially_dangerous_weather": {
+        "default": "mdi:alert-outline",
+        "state": { "off": "mdi:shield-check-outline" }
+      }
+    },
+    "sensor": {
+      "color": {
+        "default": "mdi:alert",
+        "state": { "green": "mdi:check-circle" }
+      },
+      "max_color": {
+        "default": "mdi:alert-outline",
+        "state": { "green": "mdi:check-circle-outline" }
+      },
+      "next_warning": { "default": "mdi:calendar-alert" },
+      "last_update": { "default": "mdi:update" }
+    }
+  }
+}
