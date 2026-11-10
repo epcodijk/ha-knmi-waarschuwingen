@@ -1,6 +1,6 @@
 # KNMI Waarschuwingen voor Home Assistant
 
-[![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://hacs.xyz/docs/faq/custom_repositories/)
+[![Marketplace](https://img.shields.io/badge/Home%20Assistant-Marketplace-41BDF5.svg)](https://www.home-assistant.io/blog/2026/11/04/release-202611/)
 [![Validate](https://github.com/epcodijk/ha-knmi-waarschuwingen/actions/workflows/validate.yml/badge.svg)](https://github.com/epcodijk/ha-knmi-waarschuwingen/actions/workflows/validate.yml)
 [![Tests](https://github.com/epcodijk/ha-knmi-waarschuwingen/actions/workflows/tests.yml/badge.svg)](https://github.com/epcodijk/ha-knmi-waarschuwingen/actions/workflows/tests.yml)
 
@@ -25,15 +25,23 @@ of jouw locatie binnen het waarschuwingsgebied (polygoon) valt. Geen provincie-i
 
 ## Installatie
 
-### HACS (aanbevolen)
+### Marketplace (aanbevolen, Home Assistant 2026.11 en nieuwer)
 
-1. HACS → menu (⋮) → **Custom repositories**
-2. Repository: `https://github.com/epcodijk/ha-knmi-waarschuwingen`, type **Integration**
-3. Zoek **KNMI Waarschuwingen**, installeer en herstart Home Assistant
+1. **Instellingen → Marketplace → Add from link**
+2. Vul `https://github.com/epcodijk/ha-knmi-waarschuwingen` in
+3. Installeer **KNMI Waarschuwingen** en herstart Home Assistant via de melding onder **Instellingen → Systeem → Reparaties**
+4. Voeg de integratie toe onder **Instellingen → Apparaten & diensten**
+
+Nieuwe versies verschijnen daarna vanzelf onder **Instellingen → Updates**.
+Voor *Add from link* is een GitHub-koppeling nodig; de Marketplace leest alleen openbare repositories.
+
+### HACS (Home Assistant 2026.10 en ouder)
+
+HACS → menu (⋮) → **Custom repositories** → deze repository-URL, type **Integration**.
 
 ### Handmatig
 
-Kopieer `custom_components/knmi_waarschuwingen` naar `config/custom_components/` en herstart Home Assistant.
+Kopieer `custom_components/knmi_waarschuwingen` naar `config/custom_components/` en herstart Home Assistant. Je krijgt dan geen updatemeldingen.
 
 ## Instellen
 
