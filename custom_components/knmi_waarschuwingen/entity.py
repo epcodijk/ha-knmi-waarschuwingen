@@ -33,7 +33,7 @@ class KnmiEntity(CoordinatorEntity[KnmiCoordinator]):
         self._attr_device_info = DeviceInfo(
             identifiers={(DOMAIN, entry.entry_id)},
             name=f"KNMI {coordinator.location_name}",
-            manufacturer="KNMI",
+            manufacturer="Onofficieel (data: KNMI)",
             model="Weerwaarschuwingen",
             entry_type=DeviceEntryType.SERVICE,
             configuration_url=KNMI_WARNINGS_URL,

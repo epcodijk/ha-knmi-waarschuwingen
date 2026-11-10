@@ -1,6 +1,8 @@
 {
-  "name": "KNMI Waarschuwingen",
+  "name": "KNMI Waarschuwingen (onofficieel)",
   "homeassistant": "2025.8.0",
   "render_readme": true,
-  "country": ["NL"]
+  "country": [
+    "NL"
+  ]
 }

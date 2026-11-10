@@ -1,12 +1,14 @@
 {
   "domain": "knmi_waarschuwingen",
-  "name": "KNMI Waarschuwingen",
-  "codeowners": ["@epcodijk"],
+  "name": "KNMI Waarschuwingen (onofficieel)",
+  "codeowners": [
+    "@epcodijk"
+  ],
   "config_flow": true,
   "documentation": "https://github.com/epcodijk/ha-knmi-waarschuwingen",
   "integration_type": "service",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/epcodijk/ha-knmi-waarschuwingen/issues",
   "requirements": [],
-  "version": "0.1.2"
+  "version": "0.1.3"
 }

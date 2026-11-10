@@ -40,6 +40,8 @@ WARNING_TYPE_PDW: Final = "potentially-dangerous-weather"
 
 EVENT_NEW_WARNING: Final = f"{DOMAIN}_new_warning"
 
-ATTRIBUTION: Final = "Data: KNMI (CC BY 4.0)"
+ATTRIBUTION: Final = (
+    "Data: © KNMI (CC BY 4.0), bewerkt. Onofficiële integratie, geen KNMI-product."
+)
 KNMI_API_KEY_URL: Final = "https://developer.dataplatform.knmi.nl/"
 KNMI_WARNINGS_URL: Final = "https://www.knmi.nl/nederland-nu/weer/waarschuwingen"

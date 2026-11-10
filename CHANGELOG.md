@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.3
+
+- Duidelijk vermeld dat dit een **onofficiële** integratie is: in de naam, het configuratieformulier, de apparaatinfo en de attributie van de sensoren.
+- Uitgebreide disclaimer in de README (geen garantie, geen aansprakelijkheid, niet voor veiligheidskritisch gebruik, bronvermelding KNMI CC BY 4.0, privacy).
+
 ## 0.1.2
 
 - **Eigen API-key verplicht.** De ingebouwde anonieme KNMI-key werkte niet. Bij het toevoegen vul je nu je eigen gratis Open Data API-key in. Het formulier linkt naar het KNMI Developer Portal.

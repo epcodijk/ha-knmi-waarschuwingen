@@ -2,8 +2,8 @@
   "config": {
     "step": {
       "user": {
-        "title": "KNMI weather warnings",
-        "description": "Choose the location to monitor. Warnings are checked against the exact KNMI warning areas.\n\nYou need a free personal API key for the KNMI **Open Data API**: create an account on the [KNMI Developer Portal]({key_url}) and request an Open Data API key (an EDR or WMS key does not work).",
+        "title": "KNMI weather warnings (unofficial)",
+        "description": "Choose the location to monitor. Warnings are checked against the exact KNMI warning areas.\n\nYou need a free personal API key for the KNMI **Open Data API**: create an account on the [KNMI Developer Portal]({key_url}) and request an Open Data API key (an EDR or WMS key does not work).\n\n**Unofficial integration, not made or supported by KNMI. No warranty; do not rely on it for your safety — always check knmi.nl.**",
         "data": {
           "name": "Name",
           "latitude": "Latitude",

@@ -2,8 +2,8 @@
   "config": {
     "step": {
       "user": {
-        "title": "KNMI-weerwaarschuwingen",
-        "description": "Kies de locatie die je wilt volgen. Waarschuwingen worden getoetst aan de exacte KNMI-waarschuwingsgebieden.\n\nJe hebt een gratis eigen API-key nodig voor de KNMI **Open Data API**: maak een account aan op het [KNMI Developer Portal]({key_url}) en vraag een Open Data API-key aan (een EDR- of WMS-key werkt niet).",
+        "title": "KNMI-weerwaarschuwingen (onofficieel)",
+        "description": "Kies de locatie die je wilt volgen. Waarschuwingen worden getoetst aan de exacte KNMI-waarschuwingsgebieden.\n\nJe hebt een gratis eigen API-key nodig voor de KNMI **Open Data API**: maak een account aan op het [KNMI Developer Portal]({key_url}) en vraag een Open Data API-key aan (een EDR- of WMS-key werkt niet).\n\n**Onofficiële integratie, niet gemaakt of ondersteund door het KNMI. Geen garanties; vertrouw er voor je veiligheid niet op — kijk altijd op knmi.nl.**",
         "data": {
           "name": "Naam",
           "latitude": "Breedtegraad",

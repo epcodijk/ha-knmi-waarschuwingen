@@ -1,10 +1,18 @@
-# KNMI Waarschuwingen voor Home Assistant
+# KNMI Waarschuwingen voor Home Assistant (onofficieel)
 
 [![Marketplace](https://img.shields.io/badge/Home%20Assistant-Marketplace-41BDF5.svg)](https://www.home-assistant.io/blog/2026/11/04/release-202611/)
 [![Validate](https://github.com/epcodijk/ha-knmi-waarschuwingen/actions/workflows/validate.yml/badge.svg)](https://github.com/epcodijk/ha-knmi-waarschuwingen/actions/workflows/validate.yml)
 [![Tests](https://github.com/epcodijk/ha-knmi-waarschuwingen/actions/workflows/tests.yml/badge.svg)](https://github.com/epcodijk/ha-knmi-waarschuwingen/actions/workflows/tests.yml)
 
-Officiële KNMI-weerwaarschuwingen (code geel, oranje, rood) in Home Assistant, **voor jouw exacte locatie**.
+> [!WARNING]
+> **Dit is een onofficiële community-integratie. Zij is niet gemaakt, goedgekeurd, ondersteund of gecontroleerd door het KNMI.**
+> Gebruik is volledig op eigen risico en zonder enige garantie. Vertrouw voor je veiligheid nooit alleen op deze integratie:
+> de officiële waarschuwingen staan op [knmi.nl](https://www.knmi.nl/nederland-nu/weer/waarschuwingen), in de KNMI-app en via NL-Alert.
+> Zie [Disclaimer](#disclaimer).
+>
+> *This is an unofficial community integration, not made, endorsed or supported by KNMI. Use at your own risk, without any warranty. See [Disclaimer](#disclaimer).*
+
+KNMI-weerwaarschuwingen (code geel, oranje, rood) in Home Assistant, **voor jouw exacte locatie**, op basis van de open data van het KNMI.
 
 Sinds 2 november 2026 waarschuwt het KNMI niet meer per provincie, maar voor flexibele gebieden. Deze integratie haalt de nieuwe dataset
 [KNMI public weather warnings](https://dataplatform.knmi.nl/dataset/knmi-public-weather-warnings-1-0) op van het KNMI Data Platform en controleert
@@ -150,12 +158,28 @@ card:
 3. Alleen waarschuwingen met `operational_status: Actual` en `status: active` tellen mee. Testberichten en ingetrokken waarschuwingen worden genegeerd.
 4. Per deel van een waarschuwing wordt met een point-in-polygon-test bepaald of jouw locatie in het gebied ligt.
 
-## Beperkingen en disclaimer
+## Beperkingen
 
-- Dit is **geen officieel KNMI-product**. Bij twijfel geldt altijd [knmi.nl](https://www.knmi.nl/nederland-nu/weer/waarschuwingen).
 - De locatie is een punt. Een waarschuwing die net naast je locatie ligt, telt dus niet mee.
-- Het KNMI-formaat is nieuw (november 2026). Werkt iets niet, open dan een issue en voeg de diagnostics toe (via het menu van de integratie).
-- Bronnen: [KNMI Data Platform](https://dataplatform.knmi.nl/), data onder [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+- Er zit vertraging tussen een publicatie van het KNMI en de update in Home Assistant (afhankelijk van het ophaalinterval). Ook kan de KNMI-dienst of je internetverbinding onderbroken zijn.
+- Het KNMI-formaat is nieuw (november 2026) en kan veranderen. Werkt iets niet, open dan een issue en voeg de diagnostics toe (via het menu van de integratie).
+
+## Disclaimer
+
+**Nederlands**
+
+1. **Geen officieel product.** Deze integratie is een onafhankelijk hobbyproject. Zij is niet gemaakt, goedgekeurd, gesponsord, ondersteund of gecontroleerd door het Koninklijk Nederlands Meteorologisch Instituut (KNMI) of door Home Assistant / de Open Home Foundation. Er bestaat geen enkele relatie met deze organisaties. De naam "KNMI" wordt alleen gebruikt om de bron van de data aan te duiden. Alle merken en namen zijn van hun respectieve eigenaren.
+2. **Geen garantie.** De software wordt geleverd "zoals hij is" (*as is*), zonder enige garantie, uitdrukkelijk of stilzwijgend, waaronder garanties over juistheid, volledigheid, tijdigheid, beschikbaarheid of geschiktheid voor een bepaald doel. Zie ook de [MIT-licentie](LICENSE).
+3. **Niet voor veiligheidskritisch gebruik.** Gebruik deze integratie niet als (enige) bron voor beslissingen over de veiligheid van mensen, dieren of eigendommen, en niet voor alarmering. Raadpleeg altijd de officiële kanalen: [knmi.nl](https://www.knmi.nl/nederland-nu/weer/waarschuwingen), de KNMI-app, NL-Alert en berichten van overheid en hulpdiensten.
+4. **Geen aansprakelijkheid.** Voor zover de wet dat toestaat, zijn de auteur(s) en bijdragers niet aansprakelijk voor enige directe of indirecte schade, gevolgschade of andere schade die voortvloeit uit of verband houdt met het gebruik van, of het niet kunnen gebruiken van, deze software. Dit geldt ook voor schade door onjuiste, onvolledige, vertraagde of ontbrekende waarschuwingen, en voor automatiseringen die je op basis van deze integratie instelt.
+5. **Eigen verantwoordelijkheid.** Je bent zelf verantwoordelijk voor je API-key, voor het naleven van de [voorwaarden en het fair-usebeleid van het KNMI Data Platform](https://developer.dataplatform.knmi.nl/) (bijvoorbeeld geen overmatig pollen) en voor de manier waarop je de integratie inzet.
+6. **Data en bronvermelding.** Waarschuwingsdata: © KNMI, beschikbaar gesteld onder [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) via het [KNMI Data Platform](https://dataplatform.knmi.nl/dataset/knmi-public-weather-warnings-1-0). De data is **bewerkt**: gefilterd op status en locatie en omgezet naar sensoren. Het KNMI is niet verantwoordelijk voor deze bewerking.
+7. **Privacy.** De integratie stuurt je locatie niet naar het KNMI of naar derden. Bij het KNMI komt alleen je API-key binnen; de controle of je locatie in een waarschuwingsgebied ligt, gebeurt lokaal in Home Assistant.
+8. **Geen ondersteuning.** Er is geen recht op ondersteuning, onderhoud of updates. Issues worden naar beste vermogen bekeken.
+
+**English (summary)**
+
+This is an unofficial, independent community project. It is **not** affiliated with, endorsed, sponsored or supported by the Royal Netherlands Meteorological Institute (KNMI) or by Home Assistant / the Open Home Foundation. It is provided "as is", without warranty of any kind. To the maximum extent permitted by law, the authors are not liable for any damages arising from its use, including missing, late or incorrect warnings. **Do not rely on it for safety-critical decisions or alerting**; always consult the official KNMI channels. Data: © KNMI, licensed under CC BY 4.0, modified (filtered and converted to sensors). Your location is not sent to KNMI or any third party.
 
 ## Ontwikkelen
 
@@ -168,4 +192,4 @@ ruff check . && ruff format --check .
 
 ## Licentie
 
-MIT, zie [LICENSE](LICENSE).
+Code: MIT, zie [LICENSE](LICENSE). Data: © KNMI, CC BY 4.0 (zie [Disclaimer](#disclaimer)).
