@@ -31,12 +31,12 @@ from homeassistant.helpers.selector import (
 
 from .api import KnmiApiError, KnmiAuthError, KnmiWarningsClient
 from .const import (
-    ANONYMOUS_API_KEY,
     CONF_API_KEY,
     CONF_LANGUAGE,
     CONF_SCAN_INTERVAL,
     DEFAULT_SCAN_INTERVAL,
     DOMAIN,
+    KNMI_API_KEY_URL,
     LANGUAGES,
     MAX_SCAN_INTERVAL_MINUTES,
     MIN_SCAN_INTERVAL_MINUTES,
@@ -88,9 +88,7 @@ class KnmiConfigFlow(ConfigFlow, domain=DOMAIN):
             else:
                 await self.async_set_unique_id(f"{lat:.4f}_{lon:.4f}")
                 self._abort_if_unique_id_configured()
-                error, detail = await _validate_key(
-                    self.hass, api_key or ANONYMOUS_API_KEY
-                )
+                error, detail = await _validate_key(self.hass, api_key)
                 if error:
                     errors["base"] = error
                 else:
@@ -119,8 +117,9 @@ class KnmiConfigFlow(ConfigFlow, domain=DOMAIN):
                 vol.Required(
                     CONF_LONGITUDE, default=defaults[CONF_LONGITUDE]
                 ): cv.longitude,
-                vol.Optional(
-                    CONF_API_KEY, default=defaults.get(CONF_API_KEY, "")
+                vol.Required(
+                    CONF_API_KEY,
+                    description={"suggested_value": defaults.get(CONF_API_KEY)},
                 ): TextSelector(TextSelectorConfig(type=TextSelectorType.PASSWORD)),
             }
         )
@@ -128,7 +127,10 @@ class KnmiConfigFlow(ConfigFlow, domain=DOMAIN):
             step_id="user",
             data_schema=schema,
             errors=errors,
-            description_placeholders={"error_detail": detail},
+            description_placeholders={
+                "error_detail": detail,
+                "key_url": KNMI_API_KEY_URL,
+            },
         )
 
     async def async_step_reauth(
@@ -145,7 +147,7 @@ class KnmiConfigFlow(ConfigFlow, domain=DOMAIN):
         detail = ""
         if user_input is not None:
             api_key = (user_input.get(CONF_API_KEY) or "").strip()
-            error, detail = await _validate_key(self.hass, api_key or ANONYMOUS_API_KEY)
+            error, detail = await _validate_key(self.hass, api_key)
             if error:
                 errors["base"] = error
             else:
@@ -156,13 +158,16 @@ class KnmiConfigFlow(ConfigFlow, domain=DOMAIN):
             step_id="reauth_confirm",
             data_schema=vol.Schema(
                 {
-                    vol.Optional(CONF_API_KEY, default=""): TextSelector(
+                    vol.Required(CONF_API_KEY): TextSelector(
                         TextSelectorConfig(type=TextSelectorType.PASSWORD)
                     )
                 }
             ),
             errors=errors,
-            description_placeholders={"error_detail": detail},
+            description_placeholders={
+                "error_detail": detail,
+                "key_url": KNMI_API_KEY_URL,
+            },
         )
 
     @staticmethod

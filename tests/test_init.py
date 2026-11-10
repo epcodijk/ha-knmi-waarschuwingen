@@ -229,3 +229,21 @@ async def test_dutch_entity_ids_and_diagnostics(
     diag = await async_get_config_entry_diagnostics(hass, config_entry)
     assert diag["entry"]["data"]["latitude"] == "**REDACTED**"
     assert len(diag["parts_at_location"]) == 3
+
+
+async def test_entry_without_key_starts_reauth(
+    hass: HomeAssistant, mock_client, config_entry: MockConfigEntry
+) -> None:
+    """Entries from v0.1.0/0.1.1 with an empty key ask for a new key."""
+    entry = MockConfigEntry(
+        domain=config_entry.domain,
+        title="Zwolle",
+        data={**config_entry.data, "api_key": ""},
+    )
+    entry.add_to_hass(hass)
+    await hass.config_entries.async_setup(entry.entry_id)
+    await hass.async_block_till_done()
+    assert entry.state is ConfigEntryState.SETUP_ERROR
+    flows = hass.config_entries.flow.async_progress()
+    assert [f["context"]["source"] for f in flows] == ["reauth"]
+    mock_client["latest"].assert_not_awaited()

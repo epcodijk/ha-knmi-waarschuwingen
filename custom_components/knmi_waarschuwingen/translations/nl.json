@@ -3,25 +3,25 @@
     "step": {
       "user": {
         "title": "KNMI-weerwaarschuwingen",
-        "description": "Kies de locatie die je wilt volgen. Waarschuwingen worden getoetst aan de exacte KNMI-waarschuwingsgebieden.\n\nDe API-key is optioneel: laat leeg om de gedeelde anonieme KNMI-key te gebruiken. Een gratis eigen key van het KNMI Data Platform (Open Data API) wordt aangeraden.",
+        "description": "Kies de locatie die je wilt volgen. Waarschuwingen worden getoetst aan de exacte KNMI-waarschuwingsgebieden.\n\nJe hebt een gratis eigen API-key nodig voor de KNMI **Open Data API**: maak een account aan op het [KNMI Developer Portal]({key_url}) en vraag een Open Data API-key aan (een EDR- of WMS-key werkt niet).",
         "data": {
           "name": "Naam",
           "latitude": "Breedtegraad",
           "longitude": "Lengtegraad",
-          "api_key": "API-key (optioneel)"
+          "api_key": "API-key (Open Data API)"
         }
       },
       "reauth_confirm": {
         "title": "KNMI API-key geweigerd",
-        "description": "Het KNMI heeft de API-key geweigerd. Vul een nieuwe key in, of laat leeg voor de anonieme key.",
+        "description": "Het KNMI weigert de API-key of er is geen key ingesteld. Vul een geldige key in voor de KNMI **Open Data API** ([KNMI Developer Portal]({key_url})).",
         "data": {
-          "api_key": "API-key (optioneel)"
+          "api_key": "API-key (Open Data API)"
         }
       }
     },
     "error": {
       "cannot_connect": "Kan het KNMI Data Platform niet bereiken: {error_detail}",
-      "invalid_auth": "Het KNMI weigert de API-key ({error_detail}). De gedeelde anonieme key is mogelijk verlopen: vul je eigen Open Data API-key in.",
+      "invalid_auth": "Het KNMI weigert de API-key ({error_detail}). Controleer of het een key voor de Open Data API is.",
       "outside_netherlands": "Deze locatie ligt buiten het KNMI-waarschuwingsgebied (Nederland).",
       "unknown": "Onverwachte fout: {error_detail}"
     },

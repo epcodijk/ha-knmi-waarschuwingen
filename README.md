@@ -20,7 +20,7 @@ of jouw locatie binnen het waarschuwingsgebied (polygoon) valt. Geen provincie-i
 - Teksten in het Nederlands of Engels: kop, beschrijving, impact en handelingsadvies
 - Statussen wisselen precies op het begin- en eindtijdstip, niet pas bij de volgende poll
 - Event `knmi_waarschuwingen_new_warning` bij een nieuwe of gewijzigde waarschuwing, handig voor notificaties
-- Werkt zonder API-key (anonieme KNMI-key); een eigen gratis key wordt aangeraden
+- Gebruikt je eigen gratis KNMI Open Data API-key
 - Attribuut `effective` blijft beschikbaar, zodat templates van de MeteoAlarm-integratie blijven werken
 
 ## Installatie
@@ -43,7 +43,7 @@ Kopieer `custom_components/knmi_waarschuwingen` naar `config/custom_components/`
 |---|---|
 | Naam | Bijv. `Thuis` of `Zwolle`. Wordt onderdeel van de entity-namen. |
 | Breedte-/lengtegraad | Standaard de locatie van je Home Assistant |
-| API-key | Optioneel, zie hieronder |
+| API-key | Je eigen Open Data API-key, zie hieronder |
 
 Voeg de integratie nog een keer toe voor extra locaties (werk, ouders, vakantiehuis).
 
@@ -51,10 +51,13 @@ Via **Configureren** stel je het ophaalinterval (standaard 5 minuten) en de taal
 
 ### API-key
 
-Zonder key gebruikt de integratie een gedeelde anonieme KNMI-key. Die delen alle gebruikers (limiet 50 verzoeken/minuut en 3000/uur samen) en het KNMI vervangt hem jaarlijks.
-**Vraag daarom een gratis eigen key aan** voor de *Open Data API* via het [KNMI Developer Portal](https://developer.dataplatform.knmi.nl/) (account aanmaken → API Catalog → Open Data API). Let op: een key voor de EDR- of WMS-API werkt hier niet.
-Een eigen key wijzig je later via **Opnieuw configureren** als het KNMI de key weigert.
-Per poll doet de integratie één verzoek; alleen bij een nieuwe snapshot komt er één verzoek bij.
+Je hebt een **gratis eigen key** nodig voor de *Open Data API*:
+
+1. Maak een account aan op het [KNMI Developer Portal](https://developer.dataplatform.knmi.nl/).
+2. Vraag in de API Catalog een key aan voor de **Open Data API**. Een key voor de EDR- of WMS-API werkt hier niet.
+3. Je ontvangt de key per mail. Vul hem in bij het toevoegen van de integratie.
+
+Een geregistreerde key heeft een quotum van 1000 verzoeken per uur. Bij elke poll doet de integratie één verzoek, en bij een nieuwe snapshot komt daar één bij. Met het standaardinterval van 5 minuten zit je op zo'n 12 tot 15 verzoeken per uur. Weigert het KNMI de key, dan vraagt Home Assistant je om een nieuwe in te vullen.
 
 ## Entities
 

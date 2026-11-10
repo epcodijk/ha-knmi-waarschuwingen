@@ -66,7 +66,7 @@ def config_entry() -> MockConfigEntry:
             CONF_NAME: "Zwolle",
             CONF_LATITUDE: ZWOLLE[0],
             CONF_LONGITUDE: ZWOLLE[1],
-            CONF_API_KEY: "",
+            CONF_API_KEY: "test-key",
         },
         options={"language": "nl"},
     )

@@ -25,7 +25,7 @@ USER_INPUT = {
     "name": "Zwolle",
     "latitude": ZWOLLE[0],
     "longitude": ZWOLLE[1],
-    "api_key": "",
+    "api_key": "my-key",
 }
 
 
@@ -51,7 +51,7 @@ async def test_user_flow(hass: HomeAssistant) -> None:
     assert result["type"] is FlowResultType.CREATE_ENTRY
     assert result["title"] == "Zwolle"
     assert result["data"]["latitude"] == ZWOLLE[0]
-    assert result["data"]["api_key"] == ""
+    assert result["data"]["api_key"] == "my-key"
 
 
 @pytest.mark.parametrize(
@@ -131,6 +131,19 @@ async def test_error_detail_is_shown(hass: HomeAssistant) -> None:
             result["flow_id"], USER_INPUT
         )
     assert result["errors"] == {"base": "cannot_connect"}
-    assert result["description_placeholders"] == {
-        "error_detail": "ClientConnectorDNSError: no host"
-    }
+    assert (
+        result["description_placeholders"]["error_detail"]
+        == "ClientConnectorDNSError: no host"
+    )
+
+
+async def test_api_key_required(hass: HomeAssistant) -> None:
+    import voluptuous as vol
+
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN, context={"source": config_entries.SOURCE_USER}
+    )
+    with pytest.raises(vol.Invalid):
+        await hass.config_entries.flow.async_configure(
+            result["flow_id"], {k: v for k, v in USER_INPUT.items() if k != "api_key"}
+        )

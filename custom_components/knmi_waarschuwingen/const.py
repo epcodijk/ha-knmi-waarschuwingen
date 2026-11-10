@@ -11,13 +11,6 @@ API_BASE_URL: Final = "https://api.dataplatform.knmi.nl/open-data/v1"
 DATASET_NAME: Final = "KNMI-public-weather-warnings"
 DATASET_VERSION: Final = "1.0"
 
-# Shared anonymous key for the KNMI Open Data API. KNMI rotates it yearly
-# (see https://developer.dataplatform.knmi.nl/open-data-api); users are
-# encouraged to register their own key.
-ANONYMOUS_API_KEY: Final = (
-    "eyJvcmciOiI1ZTU1NGUxOTI3NGE5NjAwMDEyYTNlYjEiLCJpZCI6IjUzYTg1ZDBhMmQ5YzRkYzJi"
-    "YWNlNzQ4NTQ2Zjk4ODExIiwiaCI6Im11cm11cjEyOCJ9"
-)
 
 CONF_API_KEY: Final = "api_key"
 CONF_LANGUAGE: Final = "language"
@@ -48,4 +41,5 @@ WARNING_TYPE_PDW: Final = "potentially-dangerous-weather"
 EVENT_NEW_WARNING: Final = f"{DOMAIN}_new_warning"
 
 ATTRIBUTION: Final = "Data: KNMI (CC BY 4.0)"
+KNMI_API_KEY_URL: Final = "https://developer.dataplatform.knmi.nl/"
 KNMI_WARNINGS_URL: Final = "https://www.knmi.nl/nederland-nu/weer/waarschuwingen"

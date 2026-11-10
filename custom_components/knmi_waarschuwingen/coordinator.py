@@ -17,7 +17,6 @@ from homeassistant.util import dt as dt_util
 
 from .api import KnmiApiError, KnmiAuthError, KnmiWarningsClient
 from .const import (
-    ANONYMOUS_API_KEY,
     CONF_API_KEY,
     CONF_LANGUAGE,
     CONF_SCAN_INTERVAL,
@@ -57,9 +56,10 @@ class KnmiCoordinator(DataUpdateCoordinator[KnmiData]):
             name=f"{DOMAIN} {entry.title}",
             update_interval=interval,
         )
+        # Entries created with v0.1.0/0.1.1 may have an empty key; that raises
+        # ConfigEntryAuthFailed on the first update so the user gets a reauth.
         self.client = KnmiWarningsClient(
-            async_get_clientsession(hass),
-            entry.data.get(CONF_API_KEY) or ANONYMOUS_API_KEY,
+            async_get_clientsession(hass), entry.data.get(CONF_API_KEY) or ""
         )
         self.language: str = entry.options.get(
             CONF_LANGUAGE, "nl" if hass.config.language.startswith("nl") else "en"
@@ -96,6 +96,8 @@ class KnmiCoordinator(DataUpdateCoordinator[KnmiData]):
     # -------------------------------------------------------------------- update
 
     async def _async_update_data(self) -> KnmiData:
+        if not self.config_entry.data.get(CONF_API_KEY):
+            raise ConfigEntryAuthFailed("No KNMI Open Data API key configured")
         try:
             filename = await self.client.async_get_latest_filename()
             previous = self.data.filename if self.data else None
