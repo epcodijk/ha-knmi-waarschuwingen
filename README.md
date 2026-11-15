@@ -1,4 +1,4 @@
-<img src="custom_components/knmi_waarschuwingen/brand/icon.png" alt="" width="96" align="right">
+<img src="https://raw.githubusercontent.com/epcodijk/ha-knmi-waarschuwingen/main/custom_components/knmi_waarschuwingen/brand/icon.png" alt="" width="96" align="right">
 
 # KNMI Waarschuwingen voor Home Assistant (onofficieel)
 
@@ -32,6 +32,16 @@ of jouw locatie binnen het waarschuwingsgebied (polygoon) valt. Geen provincie-i
 - Event `knmi_waarschuwingen_new_warning` bij een nieuwe of gewijzigde waarschuwing, handig voor notificaties
 - Gebruikt je eigen gratis KNMI Open Data API-key
 - Attribuut `effective` blijft beschikbaar, zodat templates van de MeteoAlarm-integratie blijven werken
+
+## Screenshots
+
+<p>
+  <img src="https://raw.githubusercontent.com/epcodijk/ha-knmi-waarschuwingen/main/docs/images/integratie.png" alt="Integratiepagina met versie en service" width="300">
+  &nbsp;
+  <img src="https://raw.githubusercontent.com/epcodijk/ha-knmi-waarschuwingen/main/docs/images/apparaat.png" alt="Apparaatpagina met de sensoren" width="300">
+</p>
+
+*Links: de integratie in Home Assistant. Rechts: de sensoren van een locatie.*
 
 ## Installatie
 
